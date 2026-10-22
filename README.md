@@ -6,4 +6,4 @@ Abo-Link: webcal://raw.githubusercontent.com/jaaanick/ferien-kalender/main/ferie
 
 - Quelle: mein Ferienplaner (Claude-Artifact). Eine geplante Aufgabe exportiert die Daten täglich und aktualisiert `ferien-janick.ics`.
 - `build_ics.py` erzeugt die Datei aus den exportierten `JAHR.json`-Dateien.
-- Termine: ganztägig «Ferien Janick» (bzw. «(geschenkt)»), in Outlook als abwesend markiert. Aufeinanderfolgende Ferientage werden zu einem Termin zusammengefasst.
+- Termine: jeder Ferientag einzeln 08:00–17:00 «Ferien Janick» (bzw. «(geschenkt)»), frei morgens 08:00–12:00, frei nachmittags 13:00–17:00; in Outlook als abwesend markiert.
