@@ -2,8 +2,8 @@
 """Erzeugt ferien-janick.ics aus den exportierten Ferienplaner-Daten.
 
 Aufruf: python3 build_ics.py <ordner-mit-JAHR.json> [ausgabe.ics]
-Jede JAHR.json hat die Form {"days": {"2027-04-01": "FE" | "FG"}, "guthaben": 25, "updated": "..."}.
-FE = Ferientag, FG = Ferientag geschenkt. Aufeinanderfolgende Tage werden zu einem
+Jede JAHR.json hat die Form {"days": {"2027-04-01": "FE" | "FEH" | "FG" | "FGH"}, "guthaben": 25, "updated": "..."}.
+FE = Ferientag, FG = Ferientag geschenkt, FEH/FGH = jeweils halber Tag (eigener Termin). Aufeinanderfolgende Tage werden zu einem
 Termin zusammengefasst; Wochenenden und Feiertage (Winterthur ZH) unterbrechen einen Block nicht.
 """
 import json, sys, datetime as dt
@@ -50,6 +50,10 @@ def blocks(days):
             else:
                 cur = {"code": code, "start": d, "end": d, "n": 1, "open": True}
                 out.append(cur)
+        elif code in ("FEH", "FGH"):
+            out.append({"code": code, "start": d, "end": d, "n": 0.5, "open": False})
+            if cur:
+                cur["open"] = False
         elif workday(d) and cur:
             cur["open"] = False
         d += dt.timedelta(days=1)
@@ -65,7 +69,7 @@ def main():
             continue
         doc = json.loads(f.read_text(encoding="utf-8"))
         for k, v in (doc.get("days") or {}).items():
-            if v in ("FE", "FG"):
+            if v in ("FE", "FG", "FEH", "FGH"):
                 days[dt.date.fromisoformat(k)] = v
         if doc.get("updated"):
             stamps.append(doc["updated"])
@@ -79,12 +83,13 @@ def main():
     for b in blocks(days):
         s = b["start"].strftime("%Y%m%d")
         e = (b["end"] + dt.timedelta(days=1)).strftime("%Y%m%d")
-        g = b["code"] == "FG"
+        g = b["code"][1] == "G"
+        half = len(b["code"]) > 2
         n = b["n"]
         L += ["BEGIN:VEVENT", f"UID:ferien-{b['code']}-{s}@ferienplaner-janick", f"DTSTAMP:{stamp}",
               f"DTSTART;VALUE=DATE:{s}", f"DTEND;VALUE=DATE:{e}",
-              "SUMMARY:Ferien Janick" + (" (geschenkt)" if g else ""),
-              f"DESCRIPTION:{n} Ferientag{'' if n == 1 else 'e'}" + (" (geschenkt)" if g else ""),
+              "SUMMARY:Ferien Janick" + (" (halber Tag)" if half else "") + (" (geschenkt)" if g else ""),
+              ("DESCRIPTION:½ Ferientag" if half else f"DESCRIPTION:{n} Ferientag{'' if n == 1 else 'e'}") + (" (geschenkt)" if g else ""),
               "TRANSP:OPAQUE", "X-MICROSOFT-CDO-BUSYSTATUS:OOF", "X-MICROSOFT-CDO-ALLDAYEVENT:TRUE",
               "END:VEVENT"]
     L.append("END:VCALENDAR")
