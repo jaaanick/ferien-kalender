@@ -1,0 +1,36 @@
+name: Abo-Kalender erzeugen
+
+on:
+  push:
+    branches: [main]
+    paths: ["data/**", "build_ics.py", ".github/workflows/ics.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ics
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: ICS erzeugen
+        run: python3 -I build_ics.py data ferien-janick.ics
+      - name: Committen und pushen
+        run: |
+          if git diff --quiet -- ferien-janick.ics; then echo "Keine Änderung"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ferien-janick.ics
+          git commit -m "Abo-Kalender aktualisiert"
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
