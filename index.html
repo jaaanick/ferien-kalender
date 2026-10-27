@@ -233,22 +233,6 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
     <div class="status" id="status">Wird geladen …</div>
   </header>
 
-  <div class="box auth" id="auth" hidden>
-    <p><b>Nur Ansicht.</b> Zum Bearbeiten auf diesem Gerät einmal einen GitHub-Token eingeben. Er bleibt nur in diesem Browser gespeichert.</p>
-    <ol>
-      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Neuen Fine-grained Token erstellen</a> (bei GitHub angemeldet). Alternativ den bestehenden Ferienhauser-Token um dieses Repo erweitern.</li>
-      <li>Name z.B. «Ferienplaner», Ablaufdatum nach Wunsch.</li>
-      <li>Repository access: <b>Only select repositories</b> › <b>ferien-kalender</b>.</li>
-      <li>Permissions › Repository permissions › <b>Contents: Read and write</b>.</li>
-      <li>«Generate token», Token kopieren und hier einfügen.</li>
-    </ol>
-    <div class="tokrow">
-      <input id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" aria-label="GitHub-Token">
-      <button class="btn" id="tokSave">Speichern</button>
-    </div>
-    <div class="toast" id="tokMsg" role="status"></div>
-  </div>
-
   <div class="stats" id="stats"></div>
 
   <section id="viewM" class="section">
@@ -292,6 +276,22 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
       <div class="toast" id="toast" role="status"></div>
     </div>
   </section>
+
+  <div class="box auth" style="margin:0 0 64px" id="auth" hidden>
+    <p><b>Nur Ansicht.</b> Zum Bearbeiten auf diesem Gerät einmal einen GitHub-Token eingeben. Er bleibt nur in diesem Browser gespeichert.</p>
+    <ol>
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Neuen Fine-grained Token erstellen</a> (bei GitHub angemeldet). Alternativ den bestehenden Ferienhauser-Token um dieses Repo erweitern.</li>
+      <li>Name z.B. «Ferienplaner», Ablaufdatum nach Wunsch.</li>
+      <li>Repository access: <b>Only select repositories</b> › <b>ferien-kalender</b>.</li>
+      <li>Permissions › Repository permissions › <b>Contents: Read and write</b>.</li>
+      <li>«Generate token», Token kopieren und hier einfügen.</li>
+    </ol>
+    <div class="tokrow">
+      <input id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" aria-label="GitHub-Token">
+      <button class="btn" id="tokSave">Speichern</button>
+    </div>
+    <div class="toast" id="tokMsg" role="status"></div>
+  </div>
 
   <footer class="gfoot">
     <div class="sign"><span class="motto">Schöne Ferien!</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="7" y="12.5" width="4" height="4" rx="1" fill="currentColor"/></svg></div>
