@@ -6,166 +6,237 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ferien">
-<meta name="theme-color" content="#f3f4f5">
-<title>Ferienplaner Janick</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='5' width='28' height='25' rx='4' fill='%23ffc7ce' stroke='%239c0006' stroke-width='2'/%3E%3Crect x='2' y='5' width='28' height='7' rx='3' fill='%239c0006'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161617" media="(prefers-color-scheme: dark)">
+<title>Ferienplaner</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3.5' y='5' width='17' height='15.5' rx='2.5' fill='none' stroke='%230071e3' stroke-width='1.7'/%3E%3Cpath d='M3.5 9.5h17M8 3v4M16 3v4' stroke='%230071e3' stroke-width='1.7' stroke-linecap='round'/%3E%3Crect x='7' y='12.5' width='4' height='4' rx='1' fill='%230071e3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
+/* Gestaltung wie «Der Ferienhauser»: Glas-Navigation, grosse zentrierte Bühne, graue Bänder, Kacheln mit 18px Radius, blaue Pillen-Knöpfe */
 :root{
-  --bg:#f3f4f5; --surface:#ffffff; --ink:#1c2024; --muted:#646d76; --line:#d9dde1; --accent:#2c5a85; --accent-ink:#ffffff;
-  --fe-bg:#ffc7ce; --fe-ink:#9c0006;
-  --fg-bg:#dcd5f5; --fg-ink:#4a2d86;
-  --ft-bg:#ffeb9c; --ft-ink:#7a4500;
-  --we-bg:#e3f3e6; --we-ink:#2f6b3c;
-  --today:#2c5a85; --shadow:rgba(20,30,40,.18);
-  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --f-body:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --page:#ffffff; --bg:#f5f5f7; --tile:#f5f5f7; --surface:#ffffff; --ink:#1d1d1f; --muted:#6e6e73; --line:#e8e8ed;
+  --blue:#0071e3; --link:#0066cc; --nav:rgba(255,255,255,.8); --shadow:rgba(0,0,0,.10);
+  --neg-bg:#fcebed; --neg-ink:#b0414b; --pos-bg:#e8f5ed; --pos-ink:#2f7650;
+  --fe-bg:#dcebfc; --fe-ink:#0058b0;          /* Ferientag: Blau wie die Belegung im Ferienhauser */
+  --fg-bg:#ece6fb; --fg-ink:#5b3ea8;          /* geschenkt */
+  --ft-bg:#fdf1d6; --ft-ink:#8a5a00;          /* Feiertag */
+  --we-bg:#f5f5f7; --we-ink:#86868b;          /* Wochenende */
+  --today:#0071e3;
+  --f-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Helvetica Neue",Arial,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#15181b; --surface:#1e2226; --ink:#e7eaed; --muted:#9aa3ab; --line:#30363c; --accent:#7fb0de; --accent-ink:#0e1a26;
-  --fe-bg:#5a1c22; --fe-ink:#ffb3bc; --fg-bg:#352a55; --fg-ink:#cfc2ff;
-  --ft-bg:#4d3d0c; --ft-ink:#ffdd7a; --we-bg:#1d3223; --we-ink:#9fd6ab; --today:#7fb0de; --shadow:rgba(0,0,0,.5); color-scheme:dark}}
+  --page:#000000; --bg:#1c1c1e; --tile:#161617; --surface:#111113; --ink:#f5f5f7; --muted:#a1a1a6; --line:#2c2c2e;
+  --blue:#0071e3; --link:#2997ff; --nav:rgba(22,22,23,.8); --shadow:rgba(0,0,0,.6);
+  --neg-bg:#3a2226; --neg-ink:#f2a9b0; --pos-bg:#1d3326; --pos-ink:#9fd8b4;
+  --fe-bg:#10335a; --fe-ink:#8cc4ff; --fg-bg:#2e2550; --fg-ink:#c9b8ff; --ft-bg:#3b2f12; --ft-ink:#f3cd78; --we-bg:#1c1c1e; --we-ink:#8e8e93; --today:#2997ff; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#15181b; --surface:#1e2226; --ink:#e7eaed; --muted:#9aa3ab; --line:#30363c; --accent:#7fb0de; --accent-ink:#0e1a26;
-  --fe-bg:#5a1c22; --fe-ink:#ffb3bc; --fg-bg:#352a55; --fg-ink:#cfc2ff;
-  --ft-bg:#4d3d0c; --ft-ink:#ffdd7a; --we-bg:#1d3223; --we-ink:#9fd6ab; --today:#7fb0de; --shadow:rgba(0,0,0,.5); color-scheme:dark}
+  --page:#000000; --bg:#1c1c1e; --tile:#161617; --surface:#111113; --ink:#f5f5f7; --muted:#a1a1a6; --line:#2c2c2e;
+  --blue:#0071e3; --link:#2997ff; --nav:rgba(22,22,23,.8); --shadow:rgba(0,0,0,.6);
+  --neg-bg:#3a2226; --neg-ink:#f2a9b0; --pos-bg:#1d3326; --pos-ink:#9fd8b4;
+  --fe-bg:#10335a; --fe-ink:#8cc4ff; --fg-bg:#2e2550; --fg-ink:#c9b8ff; --ft-bg:#3b2f12; --ft-ink:#f3cd78; --we-bg:#1c1c1e; --we-ink:#8e8e93; --today:#2997ff; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:980px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
-h1{font-family:var(--f-display);font-weight:700;font-size:1.6rem;letter-spacing:-.01em;margin:0;text-wrap:balance}
-.sub{color:var(--muted);font-size:.85rem;margin-top:2px}
-.yearsel{display:flex;align-items:center;gap:4px}
-.yearsel output{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;min-width:4.2ch;text-align:center}
-button{font:inherit;color:inherit;cursor:pointer}
-.icon{width:38px;height:38px;border:1px solid var(--line);background:var(--surface);border-radius:8px;font-size:1.1rem;line-height:1}
-button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-a{color:var(--accent)}
-.tabs{display:inline-flex;border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:3px;gap:3px}
-.tabs button{border:0;background:transparent;padding:7px 16px;border-radius:6px;font-weight:600;color:var(--muted)}
-.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
-.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
-.lefttools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.todaybtn{border:1px solid var(--today);color:var(--today);background:var(--surface);padding:7px 14px;border-radius:9px;font-weight:600;font-size:.88rem;letter-spacing:.04em}
-.todaybtn:hover{background:var(--today);color:var(--bg)}
-.status{font-size:.8rem;color:var(--muted)}
-.status.warn{color:var(--fe-ink)}
+html{scroll-padding-top:64px;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.47;letter-spacing:-.022em;padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--nav)}
+button,input{font:inherit;color:inherit;letter-spacing:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+a{color:var(--link)}
 
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
-.stat{padding:12px 14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
-.stat:last-child{border-right:0}
-.stat .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.stat .v{font-family:var(--f-mono);font-size:1.45rem;font-weight:500;font-variant-numeric:tabular-nums}
-.stat .v small{font-family:var(--f-body);font-size:.78rem;color:var(--muted);font-weight:400;margin-left:4px}
-.stat input{font-family:var(--f-mono);font-size:1.45rem;width:4ch;border:0;border-bottom:1px dashed var(--muted);background:transparent;color:var(--ink);padding:0}
-.v.neg{color:var(--fe-ink)} .v.zero{color:var(--we-ink)} .v.pos{color:var(--ft-ink)}
-.stat.over{background:var(--fe-bg)} .stat.over .k,.stat.over .v{color:var(--fe-ink)}
+/* Navigationsleiste */
+.gnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;height:48px;background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+.gin{max-width:1024px;height:100%;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap}
+.brand svg{width:20px;height:20px}
+.seg{display:inline-flex;background:rgba(0,0,0,.05);border-radius:10px;padding:3px;gap:2px;margin:0 auto}
+.seg button{border:0;background:transparent;border-radius:8px;padding:4px 14px;font-size:13px;font-weight:500;color:var(--muted)}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.yearsel{display:flex;align-items:center;gap:2px}
+.yearsel output{font-size:14px;font-weight:600;min-width:3.4em;text-align:center;font-variant-numeric:tabular-nums}
+.icon{min-width:32px;height:32px;border:0;background:transparent;color:var(--ink);border-radius:8px;display:inline-flex;align-items:center;justify-content:center;padding:0}
+.icon svg{width:18px;height:18px}
+.icon:hover{background:rgba(0,0,0,.05)}
+@media (max-width:620px){.brand .bname{display:none}.gin{gap:8px}.seg button{padding:4px 11px}}
+
+/* Bühne */
+.wrap{max-width:1024px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column}
+.stage{display:flex;flex-direction:column;align-items:center;text-align:center;padding:56px 0 46px;background:var(--tile);box-shadow:0 0 0 100vmax var(--tile);clip-path:inset(0 -100vmax)}
+h1{font-family:var(--f-display);font-size:clamp(2.5rem,6vw,3.5rem);font-weight:600;letter-spacing:-.005em;line-height:1.07;margin:0}
+.sub{font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:400;color:var(--ink);letter-spacing:.007em;line-height:1.2;margin-top:6px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:22px}
+.cta .btn{font-size:17px;padding:11px 22px}
+.status{margin-top:16px;font-size:12px;color:var(--muted)}
+.status.warn{color:var(--neg-ink)}
+
+/* Knöpfe */
+.btn{background:var(--blue);color:#fff;border:1px solid transparent;border-radius:980px;padding:9px 18px;font-size:15px;font-weight:400;letter-spacing:-.01em;white-space:nowrap}
+.btn:hover{background:#0077ed}
+.btn.ghost{background:transparent;color:var(--link);border:1px solid var(--link)}
+.btn.ghost:hover{background:var(--link);color:#fff}
+.btn:disabled{opacity:.55;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.linkbtn{border:0;background:none;padding:0;color:var(--link);text-decoration:none;font-size:12px}
+.linkbtn:hover{text-decoration:underline}
+
+/* Kennzahlen */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:40px 0 0}
+.stat{background:var(--tile);border-radius:18px;padding:20px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
+.stat .k{font-size:13px;color:var(--muted);letter-spacing:-.01em}
+.stat .v{font-size:2.1rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap}
+.stat .v small{font-size:.95rem;color:var(--muted);font-weight:400;margin-left:4px}
+.stat .v small.g{display:block;margin:2px 0 0;font-size:12px}
+.stat input{font:inherit;font-size:2.1rem;font-weight:600;width:2.6ch;text-align:center;border:0;border-bottom:1.5px dashed var(--muted);background:transparent;color:var(--ink);padding:0;-moz-appearance:textfield}
+.stat input::-webkit-inner-spin-button,.stat input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.v.neg{color:var(--neg-ink)} .v.zero{color:var(--pos-ink)} .v.pos{color:var(--pos-ink)}
+.stat.over{background:var(--neg-bg)} .stat.over .k,.stat.over .v,.stat.over small{color:var(--neg-ink)}
 .stat.calm .v{color:var(--muted)}
-@media (max-width:620px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stat .v,.stat input{font-size:1.6rem}}
 
-.code{font-family:var(--f-mono);font-size:.72rem;font-weight:500;padding:1px 5px;border-radius:4px;letter-spacing:.02em;white-space:nowrap}
-.c-FE,.c-FEM,.c-FEN{background:var(--fe-bg);color:var(--fe-ink)} .c-FG{background:var(--fg-bg);color:var(--fg-ink)} .c-FT{background:var(--ft-bg);color:var(--ft-ink)} .c-X{background:transparent;color:var(--muted);border:1px dashed var(--muted)}
-.hint{font-size:.82rem;color:var(--muted);margin:0}
+/* Bereiche */
+.section{padding:64px 0 70px;display:flex;flex-direction:column;gap:20px}
+.section.band{background:var(--tile);box-shadow:0 0 0 100vmax var(--tile);clip-path:inset(0 -100vmax)}
+.shead{display:flex;flex-direction:column;align-items:center;text-align:center}
+.shead h2{font-family:var(--f-display);font-size:clamp(2rem,4.2vw,3rem);font-weight:600;letter-spacing:-.003em;line-height:1.08;margin:0}
+.shead .lead{margin:8px 0 0;font-size:clamp(1.05rem,2vw,1.4rem);color:var(--muted);letter-spacing:.004em}
+.monthnav{display:flex;align-items:center;justify-content:center;gap:14px}
+.monthnav .icon{min-width:40px;height:40px;border-radius:50%;background:var(--tile)}
+.monthnav .icon svg{width:20px;height:20px}
+.monthnav .icon:hover{background:var(--line)}
+.hint{font-size:.85rem;color:var(--muted);margin:0;text-align:center}
+.section h3{text-align:center;font-size:1.3rem;font-weight:600;margin:22px 0 0;letter-spacing:-.01em}
+@media (max-width:620px){.stage{padding:40px 0 34px}.section{padding:44px 0 50px}.stats{margin-top:28px}}
 
-.monthhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.monthhead h2{font-family:var(--f-display);font-size:1.25rem;margin:0;font-weight:600}
-.monthhead .cnt{font-size:.85rem;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line);background:var(--surface);border-radius:10px;overflow:hidden}
-.dow{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:6px 8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-.day{position:relative;min-height:76px;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface);text-align:left;padding:6px 7px;display:flex;flex-direction:column;gap:3px;min-width:0}
-.day .n{font-family:var(--f-mono);font-size:.95rem;font-variant-numeric:tabular-nums}
-.day .lbl{font-size:.68rem;line-height:1.2;overflow-wrap:anywhere}
-.day.we{background:var(--we-bg);color:var(--we-ink);cursor:default}
+/* Monatsraster */
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.dow{font-size:12px;color:var(--muted);text-align:center;padding:2px 0 4px;font-weight:500}
+.day{position:relative;min-height:84px;border:0;border-radius:14px;background:var(--tile);text-align:left;padding:8px 9px;display:flex;flex-direction:column;gap:4px;min-width:0;transition:box-shadow .12s}
+.day .n{font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.day .lbl{font-size:11px;line-height:1.2;overflow-wrap:anywhere}
+.day.we{background:transparent;color:var(--we-ink);cursor:default;border:1px dashed var(--line)}
 .day.ft{background:var(--ft-bg);color:var(--ft-ink);cursor:default}
 .day.FE{background:var(--fe-bg);color:var(--fe-ink)}
 .day.FG{background:var(--fg-bg);color:var(--fg-ink)}
-.day.FEM{background:linear-gradient(to bottom,var(--fe-bg) 0 50%,var(--surface) 50% 100%);color:var(--fe-ink)}
-.day.FEN{background:linear-gradient(to bottom,var(--surface) 0 50%,var(--fe-bg) 50% 100%);color:var(--fe-ink)}
+.day.FEM{background:linear-gradient(to bottom,var(--fe-bg) 0 50%,var(--tile) 50% 100%);color:var(--fe-ink)}
+.day.FEN{background:linear-gradient(to bottom,var(--tile) 0 50%,var(--fe-bg) 50% 100%);color:var(--fe-ink)}
 .day.empty{background:transparent;cursor:default}
-.day.open{box-shadow:inset 0 0 0 2px var(--accent)}
-.day.today{box-shadow:inset 0 0 0 2px var(--today)}
-.day.today .n{display:inline-flex;align-items:center;justify-content:center;min-width:1.9em;height:1.9em;border-radius:50%;background:var(--today);color:var(--bg);align-self:flex-start;font-weight:500}
-.day.today::after{content:"Heute";position:absolute;top:8px;right:7px;font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--today);font-weight:600}
-.day:not(.we):not(.ft):not(.empty):hover{box-shadow:inset 0 0 0 2px var(--accent)}
-@media (max-width:520px){.day{min-height:58px;padding:4px}.day .lbl{font-size:.6rem}.dow{padding:5px 4px}.day.today::after{display:none}}
+.day:not(.we):not(.ft):not(.empty):hover,.day.open{box-shadow:inset 0 0 0 2px var(--blue)}
+.day.today .n{display:inline-flex;align-items:center;justify-content:center;min-width:1.85em;height:1.85em;border-radius:50%;background:var(--today);color:#fff;align-self:flex-start;font-weight:600}
+.day.today::after{content:"Heute";position:absolute;top:12px;right:10px;font-size:11px;color:var(--today);font-weight:600}
+@media (max-width:620px){.grid{gap:4px}.day{min-height:60px;padding:5px;border-radius:10px}.day .lbl{font-size:9.5px}.day .n{font-size:13px}.day.today::after{display:none}}
+.code{font-size:11px;font-weight:600;padding:1px 6px;border-radius:999px;letter-spacing:0;white-space:nowrap;align-self:flex-start}
+.c-FE,.c-FEM,.c-FEN{background:color-mix(in srgb,var(--fe-ink) 14%,transparent);color:var(--fe-ink)}
+.c-FG{background:color-mix(in srgb,var(--fg-ink) 14%,transparent);color:var(--fg-ink)}
+.c-FT{background:color-mix(in srgb,var(--ft-ink) 14%,transparent);color:var(--ft-ink)}
+.c-X{background:transparent;color:var(--muted);border:1px dashed var(--muted)}
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
 
-.menu{position:fixed;z-index:50;width:250px;max-width:calc(100vw - 32px);background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px var(--shadow);padding:6px;display:flex;flex-direction:column;gap:2px}
-.menu .mh{font-size:.75rem;color:var(--muted);padding:6px 10px 4px;text-transform:uppercase;letter-spacing:.06em}
-.menu button{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:8px;border:0;background:transparent;text-align:left;padding:8px 10px;border-radius:8px}
-.menu button:hover,.menu button:focus-visible{background:var(--bg)}
-.menu button[aria-checked="true"]{background:var(--bg);font-weight:600}
-.menu button[aria-checked="true"]::after{content:"✓";color:var(--accent)}
-.menu small{display:block;color:var(--muted);font-size:.74rem;font-weight:400}
-.menu .code{text-align:center}
+/* Auswahlmenü */
+.menu{position:fixed;z-index:50;width:264px;max-width:calc(100vw - 32px);background:var(--surface);border-radius:16px;box-shadow:0 20px 50px var(--shadow),0 0 0 1px var(--line);padding:6px;display:flex;flex-direction:column;gap:2px}
+.menu .mh{font-size:12px;color:var(--muted);padding:8px 12px 4px;font-weight:500}
+.menu button{display:grid;grid-template-columns:46px 1fr auto;align-items:center;gap:8px;border:0;background:transparent;text-align:left;padding:9px 12px;border-radius:10px;font-size:15px}
+.menu button:hover,.menu button:focus-visible{background:var(--tile);outline:none}
+.menu button[aria-checked="true"]{font-weight:600}
+.menu button[aria-checked="true"]::after{content:"✓";color:var(--blue)}
+.menu small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.menu .code{justify-self:center;align-self:center}
 .backdrop{position:fixed;inset:0;z-index:40;background:transparent}
 
-.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.8rem;color:var(--muted)}
-.legend span{display:inline-flex;gap:6px;align-items:center}
-.sw{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
-
+/* Jahr */
 .months{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 @media (max-width:860px){.months{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:620px){.months{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.mini{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0}
-.mini:hover{border-color:var(--accent)}
-.mini .t{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:.9rem}
-.mini .t span{font-family:var(--f-mono);font-weight:400;font-size:.78rem;color:var(--muted)}
-.mini .t span.has{color:var(--fe-ink)}
+.mini{border:0;background:var(--page);border-radius:18px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:8px;min-width:0}
+.mini:hover{box-shadow:inset 0 0 0 2px var(--blue)}
+.mini .t{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:15px}
+.mini .t span{font-weight:400;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mini .t span.has{color:var(--fe-ink);font-weight:500}
 .mg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
-.mg i{font-style:normal;font-family:var(--f-mono);font-size:.62rem;text-align:center;padding:2px 0;border-radius:3px;color:var(--muted)}
-.mg i.we{background:var(--we-bg);color:var(--we-ink)} .mg i.ft{background:var(--ft-bg);color:var(--ft-ink)}
-.mg i.FE{background:var(--fe-bg);color:var(--fe-ink);font-weight:500} .mg i.FG{background:var(--fg-bg);color:var(--fg-ink);font-weight:500}
-.mg i.FEM{background:linear-gradient(to bottom,var(--fe-bg) 0 50%,transparent 50% 100%);color:var(--fe-ink);font-weight:500}
-.mg i.FEN{background:linear-gradient(to bottom,transparent 0 50%,var(--fe-bg) 50% 100%);color:var(--fe-ink);font-weight:500}
-.mg i.td{outline:1.5px solid var(--today);outline-offset:-1px;color:var(--today);font-weight:600}
-.section{display:flex;flex-direction:column;gap:10px}
-.section h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0;font-weight:600}
-.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:.85rem}
-th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-tr:last-child td{border-bottom:0}
-td.num,th.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-.box{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
-.box p,.box ol{margin:0;color:var(--muted);font-size:.86rem;max-width:68ch}
-.box ol{padding-left:1.3em;display:flex;flex-direction:column;gap:3px}
-.box b{color:var(--ink)}
-.box code{font-family:var(--f-mono);font-size:.78rem;overflow-wrap:anywhere;user-select:all;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px}
-.box.auth{border-color:var(--accent)}
-.tokrow{display:flex;flex-wrap:wrap;gap:8px}
-.tokrow input{flex:1 1 260px;min-width:0;font-family:var(--f-mono);font-size:.82rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:8px 10px}
-.btns{display:flex;flex-wrap:wrap;gap:8px}
-.btn{border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-weight:600;font-size:.88rem}
-.btn.ghost{background:transparent;color:var(--ink)}
-.btn:disabled{opacity:.55;cursor:default}
-.linkbtn{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:.8rem}
-.toast{font-size:.82rem;color:var(--we-ink);min-height:1.2em}
-.toast.err{color:var(--fe-ink)}
-footer{font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.mg i{font-style:normal;font-size:10px;text-align:center;padding:2px 0;border-radius:5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mg i.we{color:color-mix(in srgb,var(--we-ink) 55%,transparent)} .mg i.ft{background:var(--ft-bg);color:var(--ft-ink)}
+.mg i.FE{background:var(--fe-bg);color:var(--fe-ink);font-weight:600} .mg i.FG{background:var(--fg-bg);color:var(--fg-ink);font-weight:600}
+.mg i.FEM{background:linear-gradient(to bottom,var(--fe-bg) 0 50%,transparent 50% 100%);color:var(--fe-ink);font-weight:600}
+.mg i.FEN{background:linear-gradient(to bottom,transparent 0 50%,var(--fe-bg) 50% 100%);color:var(--fe-ink);font-weight:600}
+.mg i.td{box-shadow:inset 0 0 0 1.5px var(--today);color:var(--today);font-weight:700}
+.tablewrap{overflow-x:auto;border-radius:18px;background:var(--page)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-size:12px;color:var(--muted);font-weight:500}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.duo{display:grid;grid-template-columns:1fr 1.4fr;gap:20px;align-items:start}
+.duo>div{display:flex;flex-direction:column;gap:12px;min-width:0}
+.duo h3{margin:0}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+
+/* Boxen */
+.box{background:var(--tile);border-radius:18px;padding:22px 24px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.box p,.box ol{margin:0;color:var(--muted);font-size:15px;max-width:62ch}
+.box ol{text-align:left;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.box b{color:var(--ink);font-weight:600}
+.box code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;overflow-wrap:anywhere;user-select:all;background:var(--page);border-radius:10px;padding:10px 14px;max-width:100%}
+.box h3{margin:0}
+.box.auth{margin:28px 0 0;box-shadow:inset 0 0 0 1.5px var(--blue)}
+.tokrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;max-width:520px}
+.tokrow input{flex:1 1 260px;min-width:0;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:14px;border:1px solid transparent;border-radius:12px;background:var(--page);color:var(--ink);padding:10px 12px}
+.tokrow input:focus{outline:none;border-color:#b9d4f5}
+.toast{font-size:13px;color:var(--pos-ink);min-height:1.2em}
+.toast.err{color:var(--neg-ink)}
+.section.band .box{background:var(--page)}
+
+/* Fuss */
+.gfoot{display:flex;flex-direction:column;align-items:center;gap:14px;padding:44px 0 34px;background:var(--tile);box-shadow:0 0 0 100vmax var(--tile);clip-path:inset(0 -100vmax);border-top:1px solid var(--line)}
+.sign{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--ink)}
+.motto{font-size:1.15rem;font-weight:500;letter-spacing:-.01em;font-style:italic}
+.sign svg{width:34px;height:34px}
+.fmeta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;font-size:12px;color:var(--muted)}
+.fmeta a{color:var(--link);text-decoration:none}
+
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gnav{border-bottom-color:rgba(255,255,255,.08)}
+  :root:not([data-theme="light"]) .seg,:root:not([data-theme="light"]) .icon:hover{background:rgba(255,255,255,.08)}
+  :root:not([data-theme="light"]) .seg button[aria-selected="true"]{background:#3a3a3c}}
+:root[data-theme="dark"] .gnav{border-bottom-color:rgba(255,255,255,.08)}
+:root[data-theme="dark"] .seg,:root[data-theme="dark"] .icon:hover{background:rgba(255,255,255,.08)}
+:root[data-theme="dark"] .seg button[aria-selected="true"]{background:#3a3a3c}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <h1>Ferienplaner</h1>
-      <div class="sub">Janick · abp Architekten · Feiertage Winterthur ZH</div>
+<nav class="gnav" aria-label="Navigation">
+  <div class="gin">
+    <a class="brand" href="./" aria-label="Ferienplaner – Startseite"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><rect x="7" y="12.5" width="4" height="4" rx="1" fill="currentColor"/></svg><span class="bname">Ferienplaner</span></a>
+    <div class="seg" role="tablist" aria-label="Ansicht">
+      <button role="tab" id="tabM" aria-selected="true">Monat</button>
+      <button role="tab" id="tabY" aria-selected="false">Jahr</button>
     </div>
     <div class="yearsel" aria-label="Jahr wählen">
-      <button class="icon" id="yPrev" aria-label="Vorheriges Jahr">‹</button>
+      <button class="icon" id="yPrev" aria-label="Vorheriges Jahr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <output id="yLbl">2026</output>
-      <button class="icon" id="yNext" aria-label="Nächstes Jahr">›</button>
+      <button class="icon" id="yNext" aria-label="Nächstes Jahr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header class="stage">
+    <h1>Ferienplaner</h1>
+    <div class="sub">Ferientage, Saldo und Bürokalender</div>
+    <div class="cta">
+      <button class="btn" id="today">Heute</button>
+      <button class="btn ghost" id="cpAbo2" type="button">Abo-Link kopieren</button>
+    </div>
+    <div class="status" id="status">Wird geladen …</div>
   </header>
 
   <div class="box auth" id="auth" hidden>
     <p><b>Nur Ansicht.</b> Zum Bearbeiten auf diesem Gerät einmal einen GitHub-Token eingeben. Er bleibt nur in diesem Browser gespeichert.</p>
     <ol>
-      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Neuen Fine-grained Token erstellen</a> (bei GitHub angemeldet).</li>
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Neuen Fine-grained Token erstellen</a> (bei GitHub angemeldet). Alternativ den bestehenden Ferienhauser-Token um dieses Repo erweitern.</li>
       <li>Name z.B. «Ferienplaner», Ablaufdatum nach Wunsch.</li>
       <li>Repository access: <b>Only select repositories</b> › <b>ferien-kalender</b>.</li>
       <li>Permissions › Repository permissions › <b>Contents: Read and write</b>.</li>
@@ -178,62 +249,53 @@ footer{font-size:.78rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:12px;
     <div class="toast" id="tokMsg" role="status"></div>
   </div>
 
-  <div class="bar">
-    <div class="lefttools">
-      <div class="tabs" role="tablist">
-        <button role="tab" id="tabM" aria-selected="true">Monat</button>
-        <button role="tab" id="tabY" aria-selected="false">Jahr</button>
-      </div>
-      <button class="todaybtn" id="today">HEUTE</button>
-    </div>
-    <div class="status" id="status">Wird geladen …</div>
-  </div>
-
   <div class="stats" id="stats"></div>
 
   <section id="viewM" class="section">
-    <div class="monthhead">
-      <button class="icon" id="mPrev" aria-label="Vorheriger Monat">‹</button>
-      <div style="text-align:center"><h2 id="mLbl">Monat</h2><div class="cnt" id="mCnt"></div></div>
-      <button class="icon" id="mNext" aria-label="Nächster Monat">›</button>
+    <div class="shead">
+      <div class="monthnav">
+        <button class="icon" id="mPrev" aria-label="Vorheriger Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <h2 id="mLbl">Monat</h2>
+        <button class="icon" id="mNext" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <p class="lead" id="mCnt"></p>
     </div>
     <div class="grid" id="grid"></div>
-    <p class="hint">Auf einen Arbeitstag tippen und auswählen: Ferientag, geschenkt, frei morgens oder frei nachmittags.</p>
     <div class="legend">
-      <span><i class="sw" style="background:var(--fe-bg)"></i>FE Ferientag (zählt)</span>
-      <span><i class="sw" style="background:linear-gradient(to bottom,var(--fe-bg) 0 50%,var(--surface) 50% 100%)"></i>frei morgens (½)</span>
-      <span><i class="sw" style="background:linear-gradient(to bottom,var(--surface) 0 50%,var(--fe-bg) 50% 100%)"></i>frei nachmittags (½)</span>
-      <span><i class="sw" style="background:var(--fg-bg)"></i>FG geschenkt (zählt nicht)</span>
-      <span><i class="sw" style="background:var(--ft-bg)"></i>FT Feiertag</span>
-      <span><i class="sw" style="background:var(--we-bg)"></i>Wochenende</span>
+      <span><i class="sw" style="background:var(--fe-bg)"></i>Ferientag</span>
+      <span><i class="sw" style="background:linear-gradient(to bottom,var(--fe-bg) 0 50%,var(--tile) 50% 100%);box-shadow:inset 0 0 0 1px var(--line)"></i>frei morgens (½)</span>
+      <span><i class="sw" style="background:linear-gradient(to bottom,var(--tile) 0 50%,var(--fe-bg) 50% 100%);box-shadow:inset 0 0 0 1px var(--line)"></i>frei nachmittags (½)</span>
+      <span><i class="sw" style="background:var(--fg-bg)"></i>geschenkt (zählt nicht)</span>
+      <span><i class="sw" style="background:var(--ft-bg)"></i>Feiertag Winterthur</span>
+    </div>
+    <p class="hint">Auf einen Arbeitstag tippen und auswählen.</p>
+  </section>
+
+  <section id="viewY" class="section band" hidden>
+    <div class="shead"><h2>Jahresübersicht</h2><p class="lead">Ein Monat antippen, um ihn zu bearbeiten.</p></div>
+    <div class="months" id="months"></div>
+    <div class="duo">
+      <div><h3>Pro Monat</h3><div class="tablewrap"><table id="tbl"></table></div></div>
+      <div><h3>Ferienblöcke</h3><div class="tablewrap"><table id="blocks"></table></div></div>
     </div>
   </section>
 
-  <section id="viewY" class="section" hidden>
-    <div class="months" id="months"></div>
-    <div class="section">
-      <h3>Total Ferientage pro Monat</h3>
-      <div class="tablewrap"><table id="tbl"></table></div>
-    </div>
-    <div class="section">
-      <h3>Ferienblöcke</h3>
-      <div class="tablewrap"><table id="blocks"></table></div>
-    </div>
+  <section class="section" id="sAbo">
+    <div class="shead"><h2>Bürokalender</h2><p class="lead">Als Abo in Outlook, aktualisiert sich selbst.</p></div>
     <div class="box">
-      <h3 style="margin:0;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Bürokalender (iCal)</h3>
-      <p><b>Abo:</b> Im Outlook «Kalender hinzufügen › Aus dem Internet abonnieren» und diesen Link einfügen. Jeder Ferientag erscheint als Termin 08:00–17:00, frei morgens 08:00–12:00, frei nachmittags 13:00–17:00. Jede Änderung hier aktualisiert die Abo-Datei automatisch innert 1–2 Minuten; Outlook übernimmt sie bei seinem nächsten Abruf.</p>
+      <p>Im Outlook «Kalender hinzufügen › Aus dem Internet abonnieren» und diesen Link einfügen. Jeder Ferientag erscheint als Termin 08:00–17:00, frei morgens 08:00–12:00, frei nachmittags 13:00–17:00. Jede Änderung hier aktualisiert die Abo-Datei innert 1–2 Minuten; Outlook übernimmt sie bei seinem nächsten Abruf.</p>
       <code id="aboUrl">webcal://raw.githubusercontent.com/jaaanick/ferien-kalender/main/ferien-janick.ics</code>
       <div class="btns">
-        <button class="btn ghost" id="cpAbo">Abo-Link kopieren</button>
-        <button class="btn ghost" id="dl">iCal-Datei des Jahres herunterladen</button>
+        <button class="btn" id="cpAbo">Abo-Link kopieren</button>
+        <button class="btn ghost" id="dl">iCal-Datei des Jahres</button>
       </div>
       <div class="toast" id="toast" role="status"></div>
     </div>
   </section>
 
-  <footer>
-    <span id="who"></span>
-    <button class="linkbtn" id="tokClear" hidden>Token auf diesem Gerät entfernen</button>
+  <footer class="gfoot">
+    <div class="sign"><span class="motto">Schöne Ferien!</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="7" y="12.5" width="4" height="4" rx="1" fill="currentColor"/></svg></div>
+    <div class="fmeta"><span>Feiertage Winterthur ZH</span><a href="https://jaaanick.github.io/ferienhaus/">Der Ferienhauser</a><span id="who"></span><button class="linkbtn" id="tokClear" hidden>Token auf diesem Gerät entfernen</button></div>
   </footer>
 </div>
 
@@ -294,7 +356,7 @@ function renderStats(){
   const c=counts(year), g=Y().guthaben, saldo=g-c.FE, over=Math.max(0,c.FE-g)*HOURS_PER_DAY;
   const cls=saldo<0?"neg":saldo===0?"zero":"pos";
   $("stats").innerHTML=`
-    <div class="stat"><span class="k">Ferientage ${year}</span><span class="v">${nf(c.FE)}<small>Tage${c.FG?` · ${nf(c.FG)} geschenkt`:""}</small></span></div>
+    <div class="stat"><span class="k">Ferientage ${year}</span><span class="v">${nf(c.FE)}<small>Tage</small>${c.FG?`<small class="g">+ ${nf(c.FG)} geschenkt</small>`:""}</span></div>
     <div class="stat"><span class="k">Guthaben Büro</span><span class="v"><input id="gh" type="number" min="0" max="60" step="0.5" value="${g}" aria-label="Guthaben Ferientage" ${token?"":"readonly"}><small>Tage</small></span></div>
     <div class="stat"><span class="k">Feriensaldo</span><span class="v ${cls}">${saldo>0?"+":""}${nf(saldo)}<small>Tage</small></span></div>
     <div class="stat ${over>0?"over":"calm"}"><span class="k">Überzeit nötig</span><span class="v">${over>0?over.toFixed(1):"–"}<small>${over>0?"Std.":""}</small></span></div>`;
@@ -424,6 +486,7 @@ $("dl").onclick=()=>{
   a.download=`Ferien-Janick-${year}.ics`; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),5000);
 };
+$("cpAbo2").onclick=()=>{const u=$("aboUrl").textContent;navigator.clipboard.writeText(u).then(()=>setStatus("Abo-Link kopiert"),()=>{$("sAbo").scrollIntoView({block:"start"});$("cpAbo").click()})};
 $("cpAbo").onclick=()=>{const u=$("aboUrl").textContent;navigator.clipboard.writeText(u).then(()=>toast("Abo-Link kopiert."),()=>{const r=document.createRange();r.selectNodeContents($("aboUrl"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Link markiert. Mit Kopieren übernehmen.")})};
 
 /* ---------- GitHub lesen / schreiben ---------- */
